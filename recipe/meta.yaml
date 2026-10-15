@@ -1,7 +1,7 @@
 {% set name = "thundereal" %}
 # Branding carries the THUNDEREAL_IDENTITY switch and the Thundereal artwork;
 # go back to LinkVibe once it has merged there. The switch is left at its
-# default (ON), which names the app com.thundereal.Thundereal.
+# default (ON), which names the app org.thundereal.Thundereal.
 {% set branch = "Branding" %}
 # The program numbers itself by date, year.month.day: THUNDEREAL_IDENTITY in
 # the source's cMake/FreeCAD_Helpers/InitializeFreeCADBuildOptions.cmake.
