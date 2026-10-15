@@ -1,5 +1,8 @@
-{% set name = "freecad-rt" %}
-{% set branch = "LinkVibe" %}
+{% set name = "thundereal" %}
+# Branding carries the THUNDEREAL_IDENTITY switch and the Thundereal artwork;
+# go back to LinkVibe once it has merged there. The switch is left at its
+# default (ON), which names the app com.thundereal.Thundereal.
+{% set branch = "Branding" %}
 {% set version = "20251015tip" %}
 
 {% if qt is undefined %}
@@ -16,7 +19,7 @@ source:
   git_depth: 1
 
 build:
-  number: 11
+  number: 0
   string: py{{ CONDA_PY }}qt{{ qt }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
   # Only 3.13 for this dev cycle, and this is what controls the rendered
   # matrix -- a python list in conda_build_config.yaml does NOT work,
@@ -166,9 +169,10 @@ about:
   license: LGPL2
   license_family: LGPL
   license_file: LICENSE
-  summary: 'FreeCAD Link Branch'
+  summary: 'Thundereal CAD, a parametric 3D modeler forked from FreeCAD'
   description: |
-    FreeCAD Link Branch with various enhancement
+    Thundereal CAD, the realthunder fork of FreeCAD (the Link branch)
+    with its own app id and artwork.
 
 extra:
   recipe-maintainers:

@@ -10,7 +10,9 @@ if "%GIT_DESCRIBE_TAG:~-6%"=="stable" (
     set ICON=icon-daily.ico
 )
 
-if exist "%RECIPE_DIR%\extra\%ICON%" (copy /y "%RECIPE_DIR%\extra\%ICON%" src\Main\icon.ico)
+REM THUNDEREAL_IDENTITY is left ON, so the executables compile
+REM src\Main\thundereal.ico; src\Main\icon.ico is FreeCAD's, used only when OFF.
+if exist "%RECIPE_DIR%\extra\%ICON%" (copy /y "%RECIPE_DIR%\extra\%ICON%" src\Main\thundereal.ico)
 
 mkdir build
 cd build

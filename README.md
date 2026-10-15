@@ -1,15 +1,16 @@
-About freecad-rt-feedstock
+About thundereal-feedstock
 ==========================
 
-Feedstock license: [BSD-3-Clause](https://github.com/realthunder/freecad-rt-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/realthunder/thundereal-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/realthunder/FreeCAD
 
 Package license: LGPL2
 
-Summary: FreeCAD Link Branch
+Summary: Thundereal CAD, a parametric 3D modeler forked from FreeCAD
 
-FreeCAD Link Branch with various enhancement
+Thundereal CAD, the realthunder fork of FreeCAD (the Link branch)
+with its own app id and artwork.
 
 
 Current build status
@@ -19,8 +20,8 @@ Current build status
 <table><tr>
     <td>GitHub Actions</td>
     <td>
-      <a href="https://github.com/realthunder/freecad-rt-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/realthunder/freecad-rt-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      <a href="https://github.com/realthunder/thundereal-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/realthunder/thundereal-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
       </a>
     </td>
   </tr>
@@ -31,12 +32,12 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-freecad--rt-green.svg)](https://anaconda.org/realthunder/freecad-rt) | [![Conda Downloads](https://img.shields.io/conda/dn/realthunder/freecad-rt.svg)](https://anaconda.org/realthunder/freecad-rt) | [![Conda Version](https://img.shields.io/conda/vn/realthunder/freecad-rt.svg)](https://anaconda.org/realthunder/freecad-rt) | [![Conda Platforms](https://img.shields.io/conda/pn/realthunder/freecad-rt.svg)](https://anaconda.org/realthunder/freecad-rt) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-thundereal-green.svg)](https://anaconda.org/realthunder/thundereal) | [![Conda Downloads](https://img.shields.io/conda/dn/realthunder/thundereal.svg)](https://anaconda.org/realthunder/thundereal) | [![Conda Version](https://img.shields.io/conda/vn/realthunder/thundereal.svg)](https://anaconda.org/realthunder/thundereal) | [![Conda Platforms](https://img.shields.io/conda/pn/realthunder/thundereal.svg)](https://anaconda.org/realthunder/thundereal) |
 
-Installing freecad-rt
+Installing thundereal
 =====================
 
-Installing `freecad-rt` from the `realthunder` channel can be achieved by adding `realthunder` to your channels with:
+Installing `thundereal` from the `realthunder` channel can be achieved by adding `realthunder` to your channels with:
 
 ```
 conda config --add channels realthunder
@@ -50,7 +51,7 @@ How to use
 <summary>With conda</summary>
 
 ```
-conda install freecad-rt
+conda install thundereal
 ```
 
 </details>
@@ -59,7 +60,7 @@ conda install freecad-rt
 <summary>With mamba</summary>
 
 ```
-mamba install freecad-rt
+mamba install thundereal
 ```
 
 </details>
@@ -69,9 +70,9 @@ mamba install freecad-rt
 
 ```
 # for adding to your local project
-pixi add freecad-rt
+pixi add thundereal
 # for installing globally
-pixi global install freecad-rt
+pixi global install thundereal
 ```
 
 </details>
@@ -79,13 +80,13 @@ pixi global install freecad-rt
 Search package versions
 -----------------------
 
-It is possible to list all of the versions of `freecad-rt` available on your platform:
+It is possible to list all of the versions of `thundereal` available on your platform:
 
 <details>
 <summary>With conda</summary>
 
 ```
-conda search freecad-rt --channel realthunder
+conda search thundereal --channel realthunder
 ```
 
 </details>
@@ -94,7 +95,7 @@ conda search freecad-rt --channel realthunder
 <summary>With mamba</summary>
 
 ```
-mamba search freecad-rt --channel realthunder
+mamba search thundereal --channel realthunder
 ```
 
 </details>
@@ -103,7 +104,7 @@ mamba search freecad-rt --channel realthunder
 <summary>With pixi</summary>
 
 ```
-pixi search freecad-rt --channel realthunder
+pixi search thundereal --channel realthunder
 ```
 
 </details>
@@ -113,13 +114,13 @@ pixi search freecad-rt --channel realthunder
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search freecad-rt --channel realthunder
+mamba repoquery search thundereal --channel realthunder
 
-# List packages depending on `freecad-rt`:
-mamba repoquery whoneeds freecad-rt --channel realthunder
+# List packages depending on `thundereal`:
+mamba repoquery whoneeds thundereal --channel realthunder
 
-# List dependencies of `freecad-rt`:
-mamba repoquery depends freecad-rt --channel realthunder
+# List dependencies of `thundereal`:
+mamba repoquery depends thundereal --channel realthunder
 ```
 
 </details>
@@ -127,17 +128,17 @@ mamba repoquery depends freecad-rt --channel realthunder
 
 
 
-Updating freecad-rt-feedstock
+Updating thundereal-feedstock
 =============================
 
-If you would like to improve the freecad-rt recipe or build a new
+If you would like to improve the thundereal recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `realthunder` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `realthunder` channel.
-Note that all branches in the realthunder/freecad-rt-feedstock are
+Note that all branches in the realthunder/thundereal-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
