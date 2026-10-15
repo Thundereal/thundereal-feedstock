@@ -70,5 +70,5 @@ ninja install
 if %ERRORLEVEL% neq 0 exit 1
 
 rmdir /s /q "%LIBRARY_PREFIX%\doc"
-REM  ren %LIBRARY_PREFIX%\bin\FreeCAD.exe freecad.exe
-REM  ren %LIBRARY_PREFIX%\bin\FreeCADCmd.exe freecadcmd.exe
+REM The executables are Thundereal.exe and ThunderealCmd.exe (THUNDEREAL_IDENTITY);
+REM Windows gets no FreeCAD-named copies.
