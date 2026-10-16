@@ -1,8 +1,8 @@
 {% set name = "thundereal" %}
-# Branding carries the THUNDEREAL_IDENTITY switch and the Thundereal artwork;
-# go back to LinkVibe once it has merged there. The switch is left at its
-# default (ON), which names the app org.thundereal.Thundereal.
-{% set branch = "Branding" %}
+# Thundereal/Thundereal's main: LinkVibe with the Thundereal branding merged.
+# The THUNDEREAL_IDENTITY switch is left at its default (ON), which names the
+# app org.thundereal.Thundereal.
+{% set branch = "main" %}
 # The program numbers itself by date, year.month.day: THUNDEREAL_IDENTITY in
 # the source's cMake/FreeCAD_Helpers/InitializeFreeCADBuildOptions.cmake.
 {% set version = "2026.10.15dev" %}
@@ -16,7 +16,7 @@ package:
   version: {{ version }}
 
 source:
-  git_url: https://github.com/realthunder/FreeCAD.git
+  git_url: https://github.com/Thundereal/Thundereal.git
   git_rev: {{ branch }}
   git_depth: 1
 
@@ -167,14 +167,15 @@ requirements:
 #     - ThunderealCmd --version || true # [unix and build_platform == target_platform]
 
 about:
-  home: https://github.com/realthunder/FreeCAD
+  home: https://thundereal.org
+  dev_url: https://github.com/Thundereal/Thundereal
   license: LGPL2
   license_family: LGPL
   license_file: LICENSE
   summary: 'Thundereal CAD, a parametric 3D modeler forked from FreeCAD'
   description: |
-    Thundereal CAD, the realthunder fork of FreeCAD (the Link branch)
-    with its own app id and artwork.
+    Thundereal CAD, a fork of FreeCAD grown out of the Link branch, with
+    its own app id and artwork.
 
 extra:
   recipe-maintainers:
