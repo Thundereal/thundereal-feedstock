@@ -1,5 +1,5 @@
 {% set name = "thundereal" %}
-# Thundereal/Thundereal's main: LinkVibe with the Thundereal branding merged.
+# Thundereal/ThunderealCAD's main: LinkVibe with the Thundereal branding merged.
 # The THUNDEREAL_IDENTITY switch is left at its default (ON), which names the
 # app org.thundereal.Thundereal.
 {% set branch = "main" %}
@@ -16,7 +16,7 @@ package:
   version: {{ version }}
 
 source:
-  git_url: https://github.com/Thundereal/Thundereal.git
+  git_url: https://github.com/Thundereal/ThunderealCAD.git
   git_rev: {{ branch }}
   git_depth: 1
 
@@ -168,7 +168,7 @@ requirements:
 
 about:
   home: https://thundereal.org
-  dev_url: https://github.com/Thundereal/Thundereal
+  dev_url: https://github.com/Thundereal/ThunderealCAD
   license: LGPL-2.1-or-later
   license_family: LGPL
   license_file: LICENSE
