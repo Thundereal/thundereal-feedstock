@@ -169,7 +169,7 @@ requirements:
 about:
   home: https://thundereal.org
   dev_url: https://github.com/Thundereal/Thundereal
-  license: LGPL2
+  license: LGPL-2.1-or-later
   license_family: LGPL
   license_file: LICENSE
   summary: 'Thundereal CAD, a parametric 3D modeler forked from FreeCAD'
