@@ -99,7 +99,11 @@ requirements:
     - xerces-c
     - zlib
     - vtk 9.6.2
-    - ffmpeg 7.0.1  # for vtk-io-ffmpeg
+    # For vtk-io-ffmpeg, whose 9.6.2 builds take ffmpeg 8.1 or 9, never the
+    # 7.0.1 this said before (the old freecad-rt recipe's, for vtk 9.2.6);
+    # 9.0 as the dev env has it. Its run-export pins the run's ffmpeg, which
+    # av below must match.
+    - ffmpeg 9.0
     - eigen
     - pybind11
     - coin3d-rt
@@ -160,6 +164,12 @@ requirements:
     - ply
     - lark
     - gmsh
+    # The Assembly simulation's animation export (CommandCreateSimulation.py):
+    # the frames through Pillow, a GIF by it alone, MP4 and AVI through PyAV
+    # (av) on the ffmpeg above -- conda-forge builds av against one ffmpeg
+    # minor at a time, and the solver picks the av that matches.
+    - pillow
+    - av
 
 # test:
 #   commands:
