@@ -79,6 +79,9 @@ cmake -G "$cmake_generator" \
       -D BUILD_FLAT_MESH:BOOL=ON \
       -D BUILD_WITH_CONDA:BOOL=ON \
       -D Python3_FIND_STRATEGY=LOCATION \
+      -D Python_FIND_STRATEGY=LOCATION \
+      -D Python_FIND_FRAMEWORK:STRING=NEVER \
+      -D Python_EXECUTABLE:FILEPATH=$PREFIX/bin/python \
       -D PYTHON_EXECUTABLE:FILEPATH=$PREFIX/bin/python \
       -D Python3_EXECUTABLE:FILEPATH=$PREFIX/bin/python \
       -D Python3_FIND_FRAMEWORK:STRING=NEVER \
@@ -102,7 +105,7 @@ cmake -G "$cmake_generator" \
       ../..
 
 if [ "${cmake_generator}" = 'Ninja' ]; then
-    ninja install
+    ninja -k 0 install
 else
     cmake --build . --target install --parallel 4
 fi

@@ -80,7 +80,7 @@ cmake -G "Ninja" ^
       ..
 if %ERRORLEVEL% neq 0 exit 1
 
-ninja install
+ninja -k 0 install
 
 if %ERRORLEVEL% neq 0 exit 1
 
