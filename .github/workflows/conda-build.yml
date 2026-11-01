@@ -24,8 +24,8 @@ jobs:
         include:
           - CONFIG: linux_64_python3.13.____cp313
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
+            STORE_BUILD_ARTIFACTS: True
+            UPLOAD_PACKAGES: 'False'
             build_workspace_dir: build_artifacts
             docker_run_args: 
             free_disk_space: skip
@@ -36,8 +36,8 @@ jobs:
             tools_install_dir: ~/miniforge3
           - CONFIG: linux_aarch64_python3.13.____cp313
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
+            STORE_BUILD_ARTIFACTS: True
+            UPLOAD_PACKAGES: 'False'
             build_workspace_dir: build_artifacts
             docker_run_args: 
             free_disk_space: skip
@@ -47,8 +47,8 @@ jobs:
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
           - CONFIG: osx_64_python3.13.____cp313
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
+            STORE_BUILD_ARTIFACTS: True
+            UPLOAD_PACKAGES: 'False'
             build_workspace_dir: ~/miniforge3/conda-bld
             docker_run_args: 
             free_disk_space: skip
@@ -58,8 +58,8 @@ jobs:
             runs_on: ['macos-15-intel']
             tools_install_dir: ~/miniforge3
           - CONFIG: osx_arm64_python3.13.____cp313
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
+            STORE_BUILD_ARTIFACTS: True
+            UPLOAD_PACKAGES: 'False'
             build_workspace_dir: ~/miniforge3/conda-bld
             docker_run_args: 
             free_disk_space: skip
@@ -69,8 +69,8 @@ jobs:
             runs_on: ['macos-15']
             tools_install_dir: ~/miniforge3
           - CONFIG: win_64_python3.13.____cp313
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
+            STORE_BUILD_ARTIFACTS: True
+            UPLOAD_PACKAGES: 'False'
             build_platform: win-64
             build_workspace_dir: D:\\bld\\
             docker_run_args: 
@@ -170,3 +170,16 @@ jobs:
         RATTLER_BUILD_COLOR: always
         RATTLER_BUILD_ENABLE_GITHUB_INTEGRATION: 'true'
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
+
+    - name: Keep the built package
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: ${{ matrix.CONFIG }}
+        path: |
+          build_artifacts/*/thundereal-*
+          ~/miniforge3/conda-bld/*/thundereal-*
+          D:/bld/*/thundereal-*
+        if-no-files-found: warn
+        compression-level: 0
+        retention-days: 14
