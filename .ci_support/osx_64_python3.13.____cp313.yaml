@@ -31,7 +31,7 @@ pin_run_as_build:
 python:
 - 3.13.* *_cp313
 qt:
-- '5.15'
+- '6'
 qt6_main:
 - 6.11.1
 qt_main:

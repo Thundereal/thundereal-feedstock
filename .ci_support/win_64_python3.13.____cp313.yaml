@@ -21,9 +21,9 @@ pin_run_as_build:
 python:
 - 3.13.* *_cp313
 qt:
-- '5.15'
-qt6_main:
 - '6'
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:

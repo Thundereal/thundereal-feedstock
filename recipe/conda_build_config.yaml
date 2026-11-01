@@ -1,3 +1,14 @@
+# The program is Qt6: this selects the qt6-main and pyside6 branches of meta.yaml.
+# Left to conda-forge's pinning it is 5.15, and the package builds on Qt5 and
+# pyside2 without a word.
+qt:
+    - '6'
+
+# v8-embed is built on glibc 2.28 and needs it at run time, so nothing that links
+# it can target less.
+c_stdlib_version:     # [linux]
+    - '2.28'          # [linux]
+
 channel_sources:
   - realthunder,freecad/label/dev,conda-forge
 channel_targets:

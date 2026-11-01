@@ -15,6 +15,8 @@ REM src\Main\thundereal.ico; src\Main\icon.ico is FreeCAD's, used only when OFF.
 if exist "%RECIPE_DIR%\extra\%ICON%" (copy /y "%RECIPE_DIR%\extra\%ICON%" src\Main\thundereal.ico)
 
 REM cogapp and the sandbox's guest wheel: see build.sh.
+REM conda-build sets PIP_NO_INDEX, which leaves pip nothing to fetch from.
+set "PIP_NO_INDEX="
 set "BUILD_TOOLS=%SRC_DIR%\.buildtools"
 python -m pip install --no-deps --target "%BUILD_TOOLS%" cogapp
 if %ERRORLEVEL% neq 0 exit 1

@@ -3,6 +3,8 @@
 # sandbox that cannot start. Neither goes into the package as itself: the wheel
 # is shipped by the build under share/Pyodide/wheels. PyPI spells the ABI by
 # PEP 783, the loader by pyodide's name (docs/DevEnvironment.md).
+# conda-build sets PIP_NO_INDEX, which leaves pip nothing to fetch from.
+unset PIP_NO_INDEX
 BUILD_TOOLS="${SRC_DIR}/.buildtools"
 python -m pip install --no-deps --target "${BUILD_TOOLS}" cogapp
 export PYTHONPATH="${BUILD_TOOLS}${PYTHONPATH:+:${PYTHONPATH}}"

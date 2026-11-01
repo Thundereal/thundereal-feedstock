@@ -52,18 +52,6 @@ requirements:
   build:
     - {{ compiler("cxx") }}
     - {{ stdlib("c") }}
-    - {{ cdt('mesa-libgl-devel') }}      # [linux]
-    - {{ cdt('mesa-dri-drivers') }}      # [linux]
-    - {{ cdt('mesa-libegl-devel') }}     # [linux]
-    - {{ cdt('libselinux') }}            # [linux]
-    - {{ cdt('libxdamage') }}            # [linux]
-    - {{ cdt('libxfixes') }}             # [linux]
-    - {{ cdt('libxxf86vm') }}            # [linux]
-    - {{ cdt('libxcb') }}                # [linux]
-    - {{ cdt('libxext') }}               # [linux]
-    - {{ cdt('xorg-x11-server-xvfb') }}  # [linux]
-    - {{ cdt('libxau') }}                # [linux]
-    - {{ cdt('libxi-devel') }}           # [linux]
     - cmake
     # SWIG generation must match the one pivy-rt was built with, and version
     # is NOT a proxy for it. SWIG shares its type registry through a module
@@ -114,6 +102,20 @@ requirements:
     - pyside2
   {% endif %}
     - smesh
+    # GL and X11 from conda-forge, the way the dev env has them. The CDTs that
+    # stood in the build section are CentOS 7's and want sysroot 2.17, and
+    # v8-embed below needs 2.28.
+    - libgl-devel       # [linux]
+    - libglx-devel      # [linux]
+    - libegl-devel      # [linux]
+    - libopengl-devel   # [linux]
+    - xorg-libxdamage   # [linux]
+    - xorg-libxfixes    # [linux]
+    - xorg-libxxf86vm   # [linux]
+    - xorg-libxext      # [linux]
+    - xorg-libxau       # [linux]
+    - xorg-libxi        # [linux]
+    - libxcb            # [linux]
     # src/Mod/Area: find_package(libarea ... REQUIRED).
     - libarea
     # BUILD_EXPR_PYODIDE_HOST defaults to v8-embed being found: without it the

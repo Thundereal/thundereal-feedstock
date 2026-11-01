@@ -1,7 +1,7 @@
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.17'
+- '2.28'
 cdt_name:
 - conda
 channel_sources:
@@ -13,7 +13,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '15'
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:cos7
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 freetype:
 - '2'
 hdf5:
@@ -29,9 +29,9 @@ pin_run_as_build:
 python:
 - 3.13.* *_cp313
 qt:
-- '5.15'
-qt6_main:
 - '6'
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:
