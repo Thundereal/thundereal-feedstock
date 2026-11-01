@@ -114,6 +114,15 @@ requirements:
     - pyside2
   {% endif %}
     - smesh
+    # src/Mod/Area: find_package(libarea ... REQUIRED).
+    - libarea
+    # BUILD_EXPR_PYODIDE_HOST defaults to v8-embed being found: without it the
+    # build goes green with no sandbox in it.
+    - v8-embed
+    # For the two things build.sh and bld.bat fetch: cogapp, a configure time
+    # requirement conda-forge stops carrying at python 3.9, and the fcx-image
+    # guest wheel, which is a wasm file and no conda package.
+    - pip
     - hdf5
     - libmed
     - libxml2-devel
@@ -163,7 +172,22 @@ requirements:
     - {{ pin_compatible('smesh', max_pin='x.x.x') }}
     - ply
     - lark
+    # gmsh runs out of process and so may bring the channel's occt, as this
+    # package does. CalculiX has no occt dependency at all.
     - gmsh
+    - calculix
+    - libarea
+    - v8-embed
+    # BIM's IFC paths: the package links libarea and the fork's occt.
+    - ifcopenshell
+    # src/Ext/freecad/deprecation.py: Draft, Arch and importDXF import none
+    # of themselves without it.
+    - typing_extensions
+    # Addon Manager, and BIM's site import.
+    - requests
+    - defusedxml
+    - gitpython
+    - pyshp
     # The Assembly simulation's animation export (CommandCreateSimulation.py):
     # the frames through Pillow, a GIF by it alone, MP4 and AVI through PyAV
     # (av) on the ffmpeg above -- conda-forge builds av against one ffmpeg

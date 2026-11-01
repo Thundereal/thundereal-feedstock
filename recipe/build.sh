@@ -1,3 +1,18 @@
+# cogapp is required at configure time and conda-forge's stops at python 3.9;
+# the guest wheel is the sandbox's, and a box with v8-embed and no wheel has a
+# sandbox that cannot start. Neither goes into the package as itself: the wheel
+# is shipped by the build under share/Pyodide/wheels. PyPI spells the ABI by
+# PEP 783, the loader by pyodide's name (docs/DevEnvironment.md).
+BUILD_TOOLS="${SRC_DIR}/.buildtools"
+python -m pip install --no-deps --target "${BUILD_TOOLS}" cogapp
+export PYTHONPATH="${BUILD_TOOLS}${PYTHONPATH:+:${PYTHONPATH}}"
+python -m pip download --no-deps --only-binary=:all: \
+    --platform pyemscripten_2026_0_wasm32 --python-version 3.14 \
+    --implementation cp --abi cp314 -d "${BUILD_TOOLS}/wheels" fcx-image==0.1.0
+FCX_WHEEL="${BUILD_TOOLS}/wheels/fcx_image-0.1.0-cp314-cp314-pyodide_2026_0_wasm32.whl"
+mv "${BUILD_TOOLS}/wheels/fcx_image-0.1.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl" \
+   "${FCX_WHEEL}"
+
 mkdir -p build/release
 cd build/release
 
@@ -79,6 +94,7 @@ cmake -G "$cmake_generator" \
       -D BUILD_ENABLE_CXX_STD:STRING=C++20 \
       -D BUILD_BGFX:BOOL=ON \
       -D BUILD_CYCLES:BOOL=ON \
+      -D FREECAD_FCX_IMAGE_WHEEL:FILEPATH="${FCX_WHEEL}" \
       -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
       ${CMAKE_PLATFORM_FLAGS[@]} \
       ../..

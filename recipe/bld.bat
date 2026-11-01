@@ -14,6 +14,17 @@ REM THUNDEREAL_IDENTITY is left ON, so the executables compile
 REM src\Main\thundereal.ico; src\Main\icon.ico is FreeCAD's, used only when OFF.
 if exist "%RECIPE_DIR%\extra\%ICON%" (copy /y "%RECIPE_DIR%\extra\%ICON%" src\Main\thundereal.ico)
 
+REM cogapp and the sandbox's guest wheel: see build.sh.
+set "BUILD_TOOLS=%SRC_DIR%\.buildtools"
+python -m pip install --no-deps --target "%BUILD_TOOLS%" cogapp
+if %ERRORLEVEL% neq 0 exit 1
+set "PYTHONPATH=%BUILD_TOOLS%;%PYTHONPATH%"
+python -m pip download --no-deps --only-binary=:all: --platform pyemscripten_2026_0_wasm32 --python-version 3.14 --implementation cp --abi cp314 -d "%BUILD_TOOLS%\wheels" fcx-image==0.1.0
+if %ERRORLEVEL% neq 0 exit 1
+set "FCX_WHEEL=%BUILD_TOOLS%\wheels\fcx_image-0.1.0-cp314-cp314-pyodide_2026_0_wasm32.whl"
+move /y "%BUILD_TOOLS%\wheels\fcx_image-0.1.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl" "%FCX_WHEEL%"
+if %ERRORLEVEL% neq 0 exit 1
+
 mkdir build
 cd build
 
@@ -36,6 +47,7 @@ cmake -G "Ninja" ^
       -D CMAKE_INSTALL_LIBDIR:FILEPATH=%LIBRARY_PREFIX%/lib ^
       -D BUILD_FEM_NETGEN:BOOL=ON ^
       -D BUILD_CYCLES:BOOL=ON ^
+      -D FREECAD_FCX_IMAGE_WHEEL:FILEPATH="%FCX_WHEEL%" ^
       -D OCC_INCLUDE_DIR:FILEPATH=%LIBRARY_PREFIX%/include/opencascade ^
       -D OCC_LIBRARY_DIR:FILEPATH=%LIBRARY_PREFIX%/lib ^
       -D OCC_LIBRARIES:FILEPATH=%LIBRARY_PREFIX%/lib ^
