@@ -102,6 +102,10 @@ requirements:
     - pyside2
   {% endif %}
     - smesh
+    # smesh's headers include pthread.h on Windows. conda-forge's smesh lists
+    # winpthreads-devel under run for that; the realthunder build has only the
+    # runtime, libwinpthread, so it is named here until that package says so.
+    - winpthreads-devel  # [win]
     # GL and X11 from conda-forge, the way the dev env has them. The CDTs that
     # stood in the build section are CentOS 7's and want sysroot 2.17, and
     # v8-embed below needs 2.28.
