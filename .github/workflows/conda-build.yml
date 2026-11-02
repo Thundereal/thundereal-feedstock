@@ -171,15 +171,34 @@ jobs:
         RATTLER_BUILD_ENABLE_GITHUB_INTEGRATION: 'true'
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
 
-    - name: Keep the built package
-      if: ${{ !cancelled() }}
+    # One step a platform, one path each: the action roots several paths at
+    # their common parent, and on Windows D:/bld has none with the workspace.
+    - name: Keep the built package (ubuntu)
+      if: ${{ !cancelled() && matrix.os == 'ubuntu' }}
       uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       with:
         name: ${{ matrix.CONFIG }}
-        path: |
-          build_artifacts/*/thundereal-*
-          ~/miniforge3/conda-bld/*/thundereal-*
-          D:/bld/*/thundereal-*
+        path: build_artifacts/*/thundereal-*
+        if-no-files-found: warn
+        compression-level: 0
+        retention-days: 14
+
+    - name: Keep the built package (macos)
+      if: ${{ !cancelled() && matrix.os == 'macos' }}
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: ${{ matrix.CONFIG }}
+        path: ~/miniforge3/conda-bld/*/thundereal-*
+        if-no-files-found: warn
+        compression-level: 0
+        retention-days: 14
+
+    - name: Keep the built package (windows)
+      if: ${{ !cancelled() && matrix.os == 'windows' }}
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: ${{ matrix.CONFIG }}
+        path: D:/bld/*/thundereal-*
         if-no-files-found: warn
         compression-level: 0
         retention-days: 14
