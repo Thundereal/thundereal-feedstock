@@ -79,6 +79,13 @@ call :end_group
 echo Building recipe
 set "_OLD_CONDA_SUBDIR=%CONDA_SUBDIR%"
 set "CONDA_SUBDIR=%BUILD_PLATFORM%"
+REM conda-build looks for git in the root env before PATH, and finds the MSYS
+REM m2-git there, whose git-remote-https started and then said nothing for 5h53m
+REM (GIT_TRACE, run 41357433130). Move it aside so the runner's Windows Git is used.
+if exist "%MINIFORGE_HOME%\Library\usr\bin\git.exe" ren "%MINIFORGE_HOME%\Library\usr\bin\git.exe" git.exe.m2
+where git
+git --version
+git config --global core.longpaths true
 REM A clone that would ask for anything fails at once, and says where it stopped.
 set "GIT_TERMINAL_PROMPT=0"
 set "GCM_INTERACTIVE=never"
