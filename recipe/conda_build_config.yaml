@@ -17,8 +17,10 @@ c_compiler:           # [win]
     - vs2022          # [win]
 cxx_compiler:         # [win]
     - vs2022          # [win]
+# The SDK only: the deployment target stays where c_stdlib_version puts it.
+# bgfx's metal-cpp names task_id_token_t, which the 11.0 SDK does not have.
 MACOSX_SDK_VERSION:   # [osx]
-    - '11.0'          # [osx]
+    - '15.5'          # [osx]
 
 # The macOS package links Qt's RHI headers (QRhi, QRhiTexture, the
 # native-handle structs) for the renderer's device-adoption path. Those are

@@ -109,5 +109,7 @@ if [ "${cmake_generator}" = 'Ninja' ]; then
 else
     cmake --build . --target install --parallel 4
 fi
-rm -r ${PREFIX}/doc     # smaller size of package!
-rm -r ${PREFIX}/share/doc/FreeCAD     # smaller size of package!
+# -f: the build installs share/doc/FreeCAD but no doc at the top, and a plain
+# rm of that failed the whole package after a clean build and install.
+rm -rf ${PREFIX}/doc     # smaller size of package!
+rm -rf ${PREFIX}/share/doc/FreeCAD     # smaller size of package!
