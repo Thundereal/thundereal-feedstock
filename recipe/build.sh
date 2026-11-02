@@ -60,8 +60,10 @@ if [[ ${HOST} =~ .*darwin.* ]]; then
 
     CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY -DBOOST_NO_CXX98_FUNCTION_BASE"
 
-    # see https://github.com/boostorg/numeric_conversion/issues/24
-    CXXFLAGS="${CXXFLAGS} -Wno-enum-constexpr-conversion"
+    # No -Wno-enum-constexpr-conversion (boostorg/numeric_conversion#24) any
+    # more: clang 21 has no such option and warns about it, and CMake's
+    # check_cxx_compiler_flag() reads that warning as the checked flag failing,
+    # so with it in CXXFLAGS every check failed and Cycles built without SSE4.2.
 fi
 
 cmake -G "$cmake_generator" \
