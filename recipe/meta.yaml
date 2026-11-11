@@ -80,6 +80,10 @@ requirements:
     - python
   {% if qt|int >= 6 %}
     - qt6-main
+    # The Web workbench (BUILD_WEB, ON by default). conda-forge has no
+    # qt6-webengine for osx-64; there the configure warns and builds without
+    # the module. The solver takes the build that matches qt6-main.
+    - qt6-webengine  # [not (osx and x86_64)]
   {% else %}
     - qt-main
   {% endif %}
@@ -166,6 +170,7 @@ requirements:
     # against. The bundle image is safe without this because it carries its own
     # Qt; this is for the package installed into someone else's environment.
     - {{ pin_compatible('qt6-main', max_pin='x.x.x') }}  # [osx]
+    - qt6-webengine  # [not (osx and x86_64)]
   {% else %}
     - pyside2
   {% endif %}
