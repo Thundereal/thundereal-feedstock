@@ -41,8 +41,19 @@ Installing `thundereal` from the `realthunder` channel can be achieved by adding
 
 ```
 conda config --add channels realthunder
-conda config --set channel_priority strict
 ```
+
+Leave `channel_priority` at its default, `flexible`. **Do not set it to
+`strict`** (the line this README used to carry): `occt`, `smesh`,
+`ifcopenshell` and `gmsh` are names conda-forge has too, and the package
+needs the realthunder builds of the first three. `conda` solves that either
+way. `mamba` 2.9 with the `.condarc` Miniforge ships -- the one with a
+`mirrored_channels` block for conda-forge -- ranks conda-forge above
+realthunder whatever the order given, so under `strict` it finds nothing to
+install, and under `flexible` it used to take conda-forge's upstream `occt`.
+The package now names the builds it needs, so `flexible` gets them with
+either tool. This section is written by hand: a `conda smithy rerender`
+puts the old line back, and it has to be taken out again.
 
 How to use
 ----------

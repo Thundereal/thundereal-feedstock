@@ -22,7 +22,13 @@ source:
 
 build:
   number: 0
-  string: py{{ CONDA_PY }}qt{{ qt }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+  # The source's commit is in the build string: the version is a date kept
+  # by hand and the number stays 0, so without it every build of this
+  # recipe had one name -- thundereal-2026.10.15dev-py313qt6h8796015_0 for
+  # the package of 2 Nov and of 11 Nov alike -- and a cache or an env could
+  # not tell which it held. GIT_FULL_HASH is known once the source is
+  # cloned; conda-build renders again then.
+  string: py{{ CONDA_PY }}qt{{ qt }}h{{ PKG_HASH }}_g{{ GIT_FULL_HASH[:7] }}_{{ PKG_BUILDNUM }}
   # Only 3.13 for this dev cycle, and this is what controls the rendered
   # matrix -- a python list in conda_build_config.yaml does NOT work,
   # because conda-smithy takes python from the global pinning and ignores
@@ -124,8 +130,10 @@ requirements:
     - xorg-libxau       # [linux]
     - xorg-libxi        # [linux]
     - libxcb            # [linux]
-    # src/Mod/Area: find_package(libarea ... REQUIRED).
-    - libarea
+    # src/Mod/Area: find_package(libarea ... REQUIRED). 0.3.3 is the first
+    # built without floating-point contraction: on arm64 0.3.2 fitted some
+    # arcs differently from x86-64 (CAMTests.TestPathProfile).
+    - libarea >=0.3.3
     # BUILD_EXPR_PYODIDE_HOST defaults to v8-embed being found: without it the
     # build goes green with no sandbox in it.
     - v8-embed
@@ -156,7 +164,13 @@ requirements:
     - tbb-devel
   run:
     - python
-    - occt 8.0.1
+    # The fork's build this package was compiled against, by its build
+    # string. "occt 8.0.1" alone is also conda-forge's upstream OCCT, and the
+    # solver takes that one: installed from realthunder and conda-forge the
+    # osx-arm64 package got all_*_200 where it was built on all_*_203, and
+    # twelve tests of the Python suite failed on it (the fillet slivers, the
+    # surface network, a thickness) with fifty-seven more skipped.
+    - {{ pin_compatible('occt', exact=True) }}
   {% if qt|int >= 6 %}
     - pyside6
     # macOS links Qt's RHI headers (QRhi, QRhiTexture, the native-handle
@@ -192,8 +206,12 @@ requirements:
     - calculix
     - libarea
     - v8-embed
-    # BIM's IFC paths: the package links libarea and the fork's occt.
-    - ifcopenshell
+    # BIM's IFC paths: the package links libarea and the fork's occt. By the
+    # version only the realthunder channel has: left open, the solver takes
+    # conda-forge's 0.9.0post1, built for its own occt, and on osx-arm64
+    # that one fails to load its schema library (boost::dll, a directory
+    # where a file is wanted).
+    - ifcopenshell 0.9.0alpha0
     # src/Ext/freecad/deprecation.py: Draft, Arch and importDXF import none
     # of themselves without it.
     - typing_extensions
@@ -224,6 +242,13 @@ about:
   description: |
     Thundereal CAD, a fork of FreeCAD grown out of the Link branch, with
     its own app id and artwork.
+
+    Install it from the realthunder channel with conda-forge behind it and
+    the channel priority left flexible, e.g.
+    "conda create -n thundereal -c realthunder -c conda-forge thundereal".
+    Not strict: occt, smesh and ifcopenshell are conda-forge's names too,
+    and mamba with Miniforge's mirrored conda-forge cannot solve them
+    strictly.
 
 extra:
   recipe-maintainers:
